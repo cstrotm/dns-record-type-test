@@ -127,17 +127,21 @@ def check_record_type(name, rrtype):
     typestr = r.get_type_str()
     pkt = resolver.query(name, rrtype, ldns.LDNS_RR_CLASS_IN)
     if pkt and pkt.answer():
-        for rr in pkt.answer().rrs():
 
-            # SERVFAIL indicated issue with server
-            if pkt.get_rcode() is ldns.LDNS_RCODE_SERVFAIL:
-                dnssec_state = " is bogus"
-                bogusrr = True
+
+        # SERVFAIL indicated issue with server
+        if pkt.get_rcode() is ldns.LDNS_RCODE_SERVFAIL:
+            failed.append(rrtypes[rrtype])
+        # NOERROR is the returncode we want to see
+        if pkt.get_rcode() is ldns.LDNS_RCODE_NOERROR:
+            success.append(rrtypes[rrtype])
+
         if debug:
             print name, "\t" + typestr + "-Record returned (" + str(pkt.ancount()) + " Records) RCODE:", rcodes[pkt.get_rcode()]
         else:
             print "RCODE:", rcodes[pkt.get_rcode()]
     else:
+        failed.append(rrtypes[rrtype])
         if pkt:
             print "No " + typestr +"-Record found", pkt.get_rcode()
         else:
@@ -147,6 +151,8 @@ def check_record_type(name, rrtype):
 # ---- (MAIN) ----
 
 debug = False
+success = []
+failed = []
 
 # Check args
 argc = len(sys.argv)
@@ -173,3 +179,16 @@ for rrtype, rrtypename in rrtypes.iteritems():
     print "Checking {}:".format(rrtypename),
     check_record_type(name, rrtype)
 
+print "Summary"
+print "-------"
+
+print "Supported RR-Types:"
+for rrtype in success:
+    print rrtype
+
+print "Failed (possibly unsupported) RR-Types:"
+for rrtype in failed:
+    print rrtype
+
+
+        

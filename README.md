@@ -13,3 +13,9 @@ The list of record types to test has been taken from
 http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4
 
 The script requires the python-wrapper around ldns from https://www.nlnetlabs.nl/projects/ldns/
+
+New record types can be checked manually from the command-line using dig:
+
+<code>
+dig defaultroutes.org TYPE59 @127.0.0.1
+</code>
