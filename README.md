@@ -25,7 +25,7 @@ Example usage:
 
 Good:
 
-'''
+```
 % ./dns-record-type-test.py defaultroutes.org 127.0.0.1
 Checking URI: RCODE: NoError
 Checking A: RCODE: NoError
@@ -189,10 +189,10 @@ TKEY
 TSIG
 MAILB
 NAILA
-'''
+```
 
 Bad:
-'''
+```
 % ./dns-record-type-test.py defaultroutes.org
 Checking URI: No response
 Checking A: RCODE: NoError
@@ -355,4 +355,4 @@ TKEY
 TSIG
 MAILB
 NAILA
-'''
+```
