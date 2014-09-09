@@ -132,6 +132,16 @@ def check_record_type(name, rrtype):
         # SERVFAIL indicated issue with server
         if pkt.get_rcode() is ldns.LDNS_RCODE_SERVFAIL:
             failed.append(rrtypes[rrtype])
+        # NOTIMP indicated not implemented RR-Type
+        if pkt.get_rcode() is ldns.LDNS_RCODE_NOTIMPL:
+            failed.append(rrtypes[rrtype])
+        # FORMERR indicated issue with Record Type
+        if pkt.get_rcode() is ldns.LDNS_RCODE_FORMERR:
+            failed.append(rrtypes[rrtype])
+        # for an existing domain name, we should not see NXDOMAIN
+        if pkt.get_rcode() is ldns.LDNS_RCODE_NXDOMAIN:
+            failed.append(rrtypes[rrtype])
+
         # NOERROR is the returncode we want to see
         if pkt.get_rcode() is ldns.LDNS_RCODE_NOERROR:
             success.append(rrtypes[rrtype])
