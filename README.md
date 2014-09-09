@@ -105,8 +105,10 @@ Checking TKEY: RCODE: ServFailServer
 Checking TSIG: RCODE: ServFailServer
 Checking MAILB: RCODE: ServFailServer
 Checking NAILA: RCODE: ServFailServer
-Summary
--------
+
+Summary:
+
+
 Supported RR-Types:
 URI
 A
@@ -270,8 +272,9 @@ Checking TKEY: No response
 Checking TSIG: No response
 Checking MAILB: No response
 Checking NAILA: No response
-Summary
--------
+
+Summary:
+
 Supported RR-Types:
 A
 NS
